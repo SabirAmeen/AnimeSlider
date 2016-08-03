@@ -1,0 +1,72 @@
+.container
+{
+	position:relative;
+	width:500px;
+	height:500px;
+	overflow: hidden;
+
+}
+.container img
+{
+	width:100%;
+	height:100%;
+	position:absolute;
+	right:0;
+	top:0;
+	bottom: 0;
+	left:0;
+}
+.first
+{
+	animation-name: anime;
+	animation-duration: 5s;
+	animation-fill-mode: forwards;
+}
+.second
+{
+	animation-name: anime;
+	animation-duration: 5s;
+	animation-fill-mode: forwards;
+}
+@keyframes anime
+{
+	0%{
+		left:0;
+		
+	}
+	25%{
+		left:-100%;
+		
+
+	}
+	75%{
+		z-index:5;
+	}
+	100%{
+		z-index:5;
+		left:0;
+	}
+}
+.front
+{
+	animation-name: front;
+	animation-duration: 5s;
+	animation-fill-mode: forwards;
+}
+@keyframes front
+{
+	0%
+	{
+		left:0;
+	}
+	25%{
+		left:100%;
+	}
+	75%{
+		z-index:-4;
+	}
+	100%{
+		z-index: -4;
+		left:0;
+	}
+}
