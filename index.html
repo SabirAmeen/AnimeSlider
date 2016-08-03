@@ -1,0 +1,164 @@
+<html>
+	<head>
+		
+
+		<style type="text/css">
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+				
+			#slider {
+				width: 640px;
+				height: 420px;
+				margin: 50px auto;
+			}
+
+			#slider ul {
+				display: block;
+				width: 640px;
+				height: 420px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			#slider ul li {
+				position: absolute;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				z-index: 2;
+				list-style: none;
+				overflow: hidden;
+			}
+
+
+			/*#slider ul li  img {
+				width: 100%;
+				min-height: 100%;
+			}*/
+
+			#slider ul .active {
+				z-index: 5;
+			}
+
+			#slider ul .next-active {
+				z-index: 3;
+			}
+
+			.ltr-enter {
+				animation: ltr-enter 1s ease;
+			}
+
+			.ltr-exit {
+				animation: ltr-exit 1s ease;
+			}
+
+			.rtl-enter {
+				animation: rtl-enter 1s ease;
+			}
+
+			.rtl-exit {
+				animation: rtl-exit 1s ease;
+			}
+			@keyframes ltr-enter{
+				0%{
+					transform: translate(-100%,0)
+				}
+				100%{
+					transform: translate(0,0);
+				}
+			}
+			@keyframes ltr-exit{
+				0%{
+					transform: translate(0,0);
+				}
+				100%{
+					transform: translate(100%,0);
+				}
+			}
+
+			@keyframes rtl-enter {
+				0% {
+					transform: translate(100%, 0)
+				}
+				100%{
+					transform: translate(0, 0)
+				}
+			}
+
+			@keyframes rtl-exit {
+				0%{
+					transform: translate(0, 0);
+				}
+				100% {
+					transform: translate(-100%, 0)
+				}
+			}
+
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="slider">
+			<ul>
+				<li class="active"><img src="images/1136.jpg" width="100%" height="100%"></li>
+				<li><img src="images/sb.jpg" width="100%" height="100%"></li>
+				<li><img src="images/banner.jpg" width="100%" height="100%"></li>
+			</ul>
+		</div>
+		<center><button onclick="prevv();">prev</button>
+		<button onclick="next();">Next</button></center>
+
+		<script type="text/javascript">
+			var $slider = $('#slider'),
+				$ul = $slider.find('ul');
+				function next(){
+					requestAnimationFrame(call);
+				}
+				function prevv(){
+					requestAnimationFrame(lt);
+				}
+				function lt(timestamp){
+					var $active=$ul.find('.active'),
+						$next=$active.prev('li').length ? $active.prev('li') : $ul.find('li:last-child');
+						$active.addClass('ltr-exit');
+				$next.addClass('next-active')
+					.addClass('ltr-enter');
+
+				setTimeout(function() {
+					$active.removeClass('ltr-exit')
+						.removeClass('active');
+
+					$next.removeClass('ltr-enter')
+						.removeClass('next-active')
+						.addClass('active');
+				},1000);
+			}
+			function call(timestamp) {
+				var $active = $ul.find('.active'),
+					$next = $active.next('li').length ? $active.next('li') : $ul.find('li:first-child');
+					console.log($next);
+
+				$active.addClass('rtl-exit');
+				$next.addClass('next-active')
+					.addClass('rtl-enter');
+
+				setTimeout(function() {
+					$active.removeClass('rtl-exit')
+						.removeClass('active');
+
+					$next.removeClass('rtl-enter')
+						.removeClass('next-active')
+						.addClass('active');
+				},1000);
+			
+			}
+
+			
+		</script>
+	</body>
+</html>
