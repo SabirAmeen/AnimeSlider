@@ -1,7 +1,5 @@
 <html>
 	<head>
-		
-
 		<style type="text/css">
 
 		* {
@@ -101,26 +99,43 @@
 		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	</head>
-	<body>
-		
+	<body >
+		<script src="js/json.js"></script>
 		<div id="slider">
-			<ul>
-				<li class="active"><img src="images/1136.jpg" width="100%" height="100%"></li>
-				<li><img src="images/sb.jpg" width="100%" height="100%"></li>
-				<li><img src="images/banner.jpg" width="100%" height="100%"></li>
+			<ul class="items">
+				<li class="active"><img id="i1" src="images/banner.jpg" width="100%" height="100%"></li>
+				
 			</ul>
 		</div>
 		<center><button onclick="prevv();">prev</button>
-		<button onclick="next();">Next</button></center>
-
+		<button onclick="next();">Next</button><br/>
+		<div id = "radio1">
+		<input type="radio" name="speeds" checked>
+		<input type="radio" name="speeds" >
+		<input type="radio" name="speeds" >
+		</div></center>
 		<script type="text/javascript">
 			var $slider = $('#slider'),
 				$ul = $slider.find('ul');
 				function next(){
 					requestAnimationFrame(call);
+					var $radios = $('input[type="radio"][name="speeds"]')
+					var $checked = $radios.filter(':checked');
+   					var $next = $radios.eq($radios.index($checked) + 1);
+   					if(!$next.length){
+       					$next = $radios.first();
+  					}
+   					$next.prop("checked", true);
 				}
 				function prevv(){
 					requestAnimationFrame(lt);
+					var $radios = $('input[type="radio"][name="speeds"]')
+					var $checked = $radios.filter(':checked');
+   					var $next = $radios.eq($radios.index($checked) - 1);
+   					if(!$next.length){
+       					$next = $radios.first();
+  					}
+   					$next.prop("checked", true);
 				}
 				function lt(timestamp){
 					var $active=$ul.find('.active'),
@@ -128,7 +143,6 @@
 						$active.addClass('ltr-exit');
 				$next.addClass('next-active')
 					.addClass('ltr-enter');
-
 				setTimeout(function() {
 					$active.removeClass('ltr-exit')
 						.removeClass('active');
@@ -141,8 +155,7 @@
 			function call(timestamp) {
 				var $active = $ul.find('.active'),
 					$next = $active.next('li').length ? $active.next('li') : $ul.find('li:first-child');
-					console.log($next);
-
+				
 				$active.addClass('rtl-exit');
 				$next.addClass('next-active')
 					.addClass('rtl-enter');
@@ -157,8 +170,16 @@
 				},1000);
 			
 			}
-
+			var output = ""; // initialize it outside the loop
+$.each(json.link,function()
+{
+    output += '<li><img src= "'+this.url+'"'+'width="100%:" height="100%"'+'></li>';
+});
+$('.items').append(output);
 			
 		</script>
+		<script src="js/works.js"></script>
+
+		
 	</body>
 </html>
